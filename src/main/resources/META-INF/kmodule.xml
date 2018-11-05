@@ -1,0 +1,7 @@
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.drools.org/xsd/kmodule">
+
+    <kbase name="test-kbase" default="true" packages="io.radanalytics.tutorial.drools.rules">
+        <ksession name="test-ksession" default="true" />
+    </kbase>
+
+</kmodule>

@@ -1,0 +1,12 @@
+package io.radanalytics.tutorial.drools.rules;
+
+import io.radanalytics.tutorial.drools.rules.model.Input;
+import io.radanalytics.tutorial.drools.rules.model.Output;
+
+
+rule "Test Rule"
+    when
+        accumulate( Input(); $count : count() )
+    then
+        insert( new Output( $count ) );
+end
