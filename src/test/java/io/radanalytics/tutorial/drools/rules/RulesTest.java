@@ -1,6 +1,6 @@
 package io.radanalytics.tutorial.drools.rules;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Collection;
 
@@ -8,8 +8,8 @@ import org.junit.Test;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.KieSession;
-import io.radanalytics.tutorial.drools.rules.model.Input;
-import io.radanalytics.tutorial.drools.rules.model.Output;
+import io.radanalytics.tutorial.drools.rule.model.Input;
+import io.radanalytics.tutorial.drools.rule.model.Output;
 
 public class RulesTest {
 
