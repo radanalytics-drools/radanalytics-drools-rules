@@ -4,9 +4,47 @@ import io.radanalytics.tutorial.drools.rule.model.Input;
 import io.radanalytics.tutorial.drools.rule.model.Output;
 
 
-rule "Test Rule"
+rule "Value Michael is Valid"
     when
-        accumulate( Input(); $count : count() )
+        $input : Input( val == "Michael" )
     then
-        insert( new Output( $count ) );
+        modify( $input ) {
+        	setValid( true )	
+        };
 end
+
+rule "Value Billy is valid"
+    when
+        $input : Input( val == "Billy" )
+    then
+        modify( $input ) {
+        	setValid( true )	
+        };
+end
+
+rule "Value Katie is valid"
+    when
+        $input : Input( val == "Katie" )
+    then
+        modify( $input ) {
+        	setValid( true )	
+        };
+end
+
+rule "Value Matt is valid"
+    when
+        $input : Input( val == "Matt" )
+    then
+        modify( $input ) {
+        	setValid( true )	
+        };
+end
+
+rule "Create Output"
+	salience -100
+	when
+		accumulate( Input( valid == true ); $count : count() )
+	then
+		insert( new Output( $count ) );
+end
+	

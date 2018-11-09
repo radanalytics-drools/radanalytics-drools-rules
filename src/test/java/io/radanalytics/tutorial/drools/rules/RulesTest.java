@@ -17,9 +17,10 @@ public class RulesTest {
     public void testRules() {
         Input i1 = new Input( "Michael" );
         Input i2 = new Input( "Billy" );
-        Input i3 = new Input( "Matt" );
-        Input i4 = new Input( "Kevin" );
-        Input i5 = new Input( "Eddied" );
+        Input i3 = new Input( "Katie" );
+        Input i4 = new Input( "Matt" );
+        Input i5 = new Input( "Kevin" );
+        Input i6 = new Input( "Eddie" );
 
         KieSession session = KieServices.Factory.get().newKieClasspathContainer().newKieSession( "test-ksession" );
         session.insert( i1 );
@@ -27,14 +28,15 @@ public class RulesTest {
         session.insert( i3 );
         session.insert( i4 );
         session.insert( i5 );
+        session.insert( i6 );
 
         int firedCount = session.fireAllRules();
 
-        Output expected = new Output( 5l );
+        Output expected = new Output( 4L );
         Output result = (Output) session.getObjects( new ClassObjectFilter( Output.class ) ).stream().findFirst().get();
 
         assertEquals( result, expected );
-        assertEquals( firedCount, 1 );
+        assertEquals( firedCount, 5 );
 
     }
 
