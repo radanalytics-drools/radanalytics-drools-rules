@@ -1,41 +1,53 @@
 package io.radanalytics.tutorial.drools.rules;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.KieSession;
+
 import io.radanalytics.tutorial.drools.rule.model.Input;
-import io.radanalytics.tutorial.drools.rule.model.Output;
 
 public class RulesTest {
 
     @Test
     public void testRules() {
-        Input i1 = new Input( "Michael" );
-        Input i2 = new Input( "Billy" );
-        Input i3 = new Input( "Katie" );
-        Input i4 = new Input( "Matt" );
-        Input i5 = new Input( "Kevin" );
-        Input i6 = new Input( "Eddie" );
+        Input michael = new Input( "Michael" );
+        Input billy = new Input( "Billy" );
+        Input katie = new Input( "Katie" );
+        Input matt = new Input( "Matt" );
+        Input kevin = new Input( "Kevin" );
+        Input eddie = new Input( "Eddie" );
+        Input sheila = new Input( "Sheila" );
+        Input kelly = new Input( "Kelly" );
+        Input lauren = new Input( "Lauren" );
 
         KieSession session = KieServices.Factory.get().newKieClasspathContainer().newKieSession( "test-ksession" );
-        session.insert( i1 );
-        session.insert( i2 );
-        session.insert( i3 );
-        session.insert( i4 );
-        session.insert( i5 );
-        session.insert( i6 );
 
+        Stream.of( michael, billy, katie, matt, kevin, eddie, sheila, kelly, lauren ).forEach( session::insert );
         int firedCount = session.fireAllRules();
 
-        Output expected = new Output( 4L );
-        Output result = (Output) session.getObjects( new ClassObjectFilter( Output.class ) ).stream().findFirst().get();
+        List<Input> results = (List<Input>) session.getObjects( new ClassObjectFilter( Input.class ) ).stream().collect( Collectors.toList() );
 
-        assertEquals( result, expected );
+        List<Input> valid = results.stream().filter( x -> x.isValid() ).collect( Collectors.toList() );
+
+        assertTrue( valid.contains( michael ) );
+        assertTrue( valid.contains( billy ) );
+        assertTrue( valid.contains( matt ) );
+        assertTrue( valid.contains( kevin ) );
+        assertTrue( valid.contains( eddie ) );
+        assertFalse( valid.contains( katie ) );
+        assertFalse( valid.contains( kelly ) );
+        assertFalse( valid.contains( lauren ) );
+        assertFalse( valid.contains( sheila ) );
+
         assertEquals( firedCount, 5 );
 
     }

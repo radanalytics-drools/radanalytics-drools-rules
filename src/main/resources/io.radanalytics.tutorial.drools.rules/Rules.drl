@@ -22,15 +22,6 @@ rule "Value Billy is valid"
         };
 end
 
-rule "Value Katie is valid"
-    when
-        $input : Input( val == "Katie" )
-    then
-        modify( $input ) {
-        	setValid( true )	
-        };
-end
-
 rule "Value Matt is valid"
     when
         $input : Input( val == "Matt" )
@@ -40,11 +31,20 @@ rule "Value Matt is valid"
         };
 end
 
-rule "Create Output"
-	salience -100
-	when
-		accumulate( Input( valid == true ); $count : count() )
-	then
-		insert( new Output( $count ) );
+rule "Value Kevin is valid"
+    when
+        $input : Input( val == "Kevin" )
+    then
+        modify( $input ) {
+        	setValid( true )	
+        };
 end
-	
+
+rule "Value Eddie is valid"
+    when
+        $input : Input( val == "Eddie" )
+    then
+        modify( $input ) {
+        	setValid( true )	
+        };
+end
